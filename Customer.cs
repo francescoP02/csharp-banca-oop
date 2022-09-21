@@ -15,4 +15,5 @@ public class Customer
         FiscalCode = fiscalCode;
         Salary = salary;
     }
+
 }
