@@ -30,6 +30,10 @@
 //Bonus:
 //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
 
+using Microsoft.VisualBasic;
+using System.Runtime.InteropServices;
+using System;
+
 List<Customer> customers = new List<Customer>();
 List<Loan> loans = new List<Loan>();
 
@@ -90,7 +94,7 @@ Console.WriteLine(Environment.NewLine);
 foreach (Loan loan in loans)
 {
     Console.WriteLine($"Id: {loan.Id}");
-    Console.WriteLine($"Client Name and Surname: {loan.Customer.Name} {loan.Customer.Surname}");
+    Console.WriteLine($"Customer's Name and Surname: {loan.Customer.Name} {loan.Customer.Surname}");
     Console.WriteLine($"Ammount: {loan.Total}");
     Console.WriteLine($"Installment number: {loan.Installment}");
     Console.WriteLine($"Start date: {loan.StartDate}");
@@ -123,6 +127,9 @@ void CreateNewCustomer()
 
     Customer newCustomer = new Customer(inputName, inputSurname, inputTaxCode, inputSalary);
     customers.Add(newCustomer);
+
+    Console.WriteLine(Environment.NewLine);
+    Console.WriteLine(Environment.NewLine);
 }
 
 
@@ -144,11 +151,22 @@ void SearchClient()
     {
         if (loan.Customer.FiscalCode == fiscalCode)
         {
+
             found = true;
 
             total = total + loan.Total;
 
-            Console.WriteLine($"****The customer {loan.Customer.Surname} has a loan of {loan.Total} euro started in {loan.StartDate} ****");
+            DateTime thisDay = DateTime.Today;
+
+            DateTime endDay = thisDay.AddMonths(loan.Installment);
+
+            string diff = Convert.ToString(endDay.Subtract(thisDay));
+
+            string[] splitDiff = diff.Split('.');
+
+            int diffMonth = (Convert.ToInt32(splitDiff[0]) / 30);
+
+            Console.WriteLine($"****The customer {loan.Customer.Surname} has a loan of {loan.Total} euro started in {loan.StartDate} and end in {loan.EndDate}, {diffMonth} remaining installments ****");
         }
     }
 
@@ -161,6 +179,9 @@ void SearchClient()
     {
         Console.WriteLine($"****Customer {fiscalCode} has a total ammount of {total} euro to pay****");
     }
+
+    Console.WriteLine(Environment.NewLine);
+    Console.WriteLine(Environment.NewLine);
 
 }
 
@@ -189,7 +210,11 @@ void AddLoan()
             Console.WriteLine("****Insert installment number****");
             int installment = Convert.ToInt32(Console.ReadLine());
 
-            Loan loan = new Loan(customer, ammount, installment, "21/09/2022", "31/12/2022");
+            DateTime thisDay = DateTime.Today;
+
+            DateTime endDay = thisDay.AddMonths(installment);
+
+            Loan loan = new Loan(customer, ammount, installment, thisDay.ToString("d"), endDay.ToString("d"));
 
             loans.Add(loan);
 
@@ -198,8 +223,11 @@ void AddLoan()
     }
     if (found == false)
     {
-        Console.WriteLine("Client don't found, try register new client first");
+        Console.WriteLine("Customer don't found, try register new customer first");
     }
+
+    Console.WriteLine(Environment.NewLine);
+    Console.WriteLine(Environment.NewLine);
 
 }
 
@@ -285,6 +313,9 @@ void ModifyCustomer()
     {
         Console.Clear();
 
-        Console.WriteLine("****Client don't found, try register new client first****");
+        Console.WriteLine("****Customer don't found, try register new customer first****");
+
+        Console.WriteLine(Environment.NewLine);
+        Console.WriteLine(Environment.NewLine);
     }
 }
