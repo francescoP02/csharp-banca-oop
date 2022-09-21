@@ -68,6 +68,36 @@ do
 
 } while (userInput != "stop");
 
+Console.Clear();
+
+Console.WriteLine(Environment.NewLine);
+Console.WriteLine("****All Customers' Informations****");
+Console.WriteLine(Environment.NewLine);
+
+foreach (Customer customer in customers)
+{
+    Console.WriteLine($"Name: {customer.Name}");
+    Console.WriteLine($"Surname: {customer.Surname}");
+    Console.WriteLine($"Fiscal Code: {customer.FiscalCode}");
+    Console.WriteLine($"Salary: {customer.Salary}");
+
+}
+
+Console.WriteLine(Environment.NewLine);
+Console.WriteLine("****All Loans' Informations****");
+Console.WriteLine(Environment.NewLine);
+
+foreach (Loan loan in loans)
+{
+    Console.WriteLine($"Id: {loan.Id}");
+    Console.WriteLine($"Client Name and Surname: {loan.Customer.Name} {loan.Customer.Surname}");
+    Console.WriteLine($"Ammount: {loan.Total}");
+    Console.WriteLine($"Installment number: {loan.Installment}");
+    Console.WriteLine($"Start date: {loan.StartDate}");
+    Console.WriteLine($"End date: {loan.EndDate}");
+
+}
+
 
 //FUNCTIONS
 
@@ -110,7 +140,6 @@ void SearchClient()
 
     string fiscalCode = Console.ReadLine();
 
-    // searching for a loan having the client Id entered
     foreach (Loan loan in loans)
     {
         if (loan.Customer.FiscalCode == fiscalCode)
