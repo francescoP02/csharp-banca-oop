@@ -223,7 +223,7 @@ void AddLoan()
     }
     if (found == false)
     {
-        Console.WriteLine("Customer don't found, try register new customer first");
+        Console.WriteLine("Customer not found, try register new customer first");
     }
 
     Console.WriteLine(Environment.NewLine);
@@ -313,7 +313,7 @@ void ModifyCustomer()
     {
         Console.Clear();
 
-        Console.WriteLine("****Customer don't found, try register new customer first****");
+        Console.WriteLine("****Customer not found, try register new customer first****");
 
         Console.WriteLine(Environment.NewLine);
         Console.WriteLine(Environment.NewLine);
